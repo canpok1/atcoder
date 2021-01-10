@@ -1,0 +1,233 @@
+{
+	// Place your sample-rust ワークスペース snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"Input stdin as string": {
+		"scope": "rust",
+		"prefix": "input stdin as string",
+		"body": [
+			"let ${1:s}:String = {",
+			"\tlet mut line = String::new();",
+			"\tstd::io::stdin().read_line(&mut line).unwrap();",
+			"\tline.trim_end().to_owned()",
+			"};"
+		],
+		"description": "Read stdin as single string"
+	},
+	"Input stdin as strings": {
+		"scope": "rust",
+		"prefix": "input stdin as strings",
+		"body": [
+			"let (${1:s1}, ${2:s2}) = {",
+			"\tlet mut line = String::new();",
+			"\tstd::io::stdin().read_line(&mut line).unwrap();",
+			"\tlet mut ws = line.trim_end().split_whitespace();",
+			"\tlet s1: String = ws.next().unwrap().parse().unwrap();",
+			"\tlet s2: String = ws.next().unwrap().parse().unwrap();",
+			"\t(s1, s2)",
+			"};"
+		],
+		"description": "Read stdin as strings"
+	},
+	"Input stdin as string vector": {
+		"scope": "rust",
+		"prefix": "input stdin as string vector",
+		"body": [
+			"let ${1:s}:Vec<String> = {",
+			"\tlet mut line = String::new();",
+			"\tstd::io::stdin().read_line(&mut line).unwrap();",
+			"\tline.trim_end().split_whitespace().map(|v| v.to_string()).collect()",
+			"};"
+		],
+		"description": "Read stdin as string vector"
+	},
+	"Input stdin as number": {
+		"scope": "rust",
+		"prefix": "input stdin as number",
+		"body": [
+			"let ${1:n}: ${2:usize} = {",
+			"\tlet mut line = String::new();",
+			"\tstd::io::stdin().read_line(&mut line).unwrap();",
+			"\tline.trim_end().parse().unwrap()",
+			"};"
+		],
+		"description": "Read stdin as single number"
+	},
+	"Input stdin as numbers": {
+		"scope": "rust",
+		"prefix": "input stdin as numbers",
+		"body": [
+			"let (${1:n1}, ${2:n2}) = {",
+			"\tlet mut line = String::new();",
+			"\tstd::io::stdin().read_line(&mut line).unwrap();",
+			"\tlet mut ws = line.trim_end().split_whitespace();",
+			"\tlet n1: ${3:usize} = ws.next().unwrap().parse().unwrap();",
+			"\tlet n2: ${3:usize} = ws.next().unwrap().parse().unwrap();",
+			"\t(n1, n2)",
+			"};"
+		],
+		"description": "Read stdin as numbers"
+	},
+	"Input stdin as number vector": {
+		"scope": "rust",
+		"prefix": "input stdin as number vector",
+		"body": [
+			"let ${1:n}: Vec<${2:usize}> = {",
+			"\tlet mut line = String::new();",
+			"\tstd::io::stdin().read_line(&mut line).unwrap();",
+			"\tline.trim_end().split_whitespace().map(|v| v.parse().unwrap()).collect()",
+			"};"
+		],
+		"description": "Read stdin as number vector"
+	},
+	"Input stdin all as string vector": {
+		"scope": "rust",
+		"prefix": "input stdin all as string vector",
+		"body": [
+			"let mut ${1:stdin}: Vec<String> = Vec::new();",
+			"loop {",
+			"\tlet mut s = String::new();",
+			"\tlet size = std::io::stdin().read_line(&mut s).unwrap();",
+			"\tif size == 0 {",
+			"\t    break;",
+			"\t}",
+			"\tstdin.push(s.trim_end().to_string());",
+			"}"
+		],
+		"description": "Read stdin all as string vector"
+	},
+	"atcoder base": {
+		"scope": "rust",
+		"prefix": "atcoder",
+		"body": [
+			"fn main() {",
+			"\tlet stdout = solve(1);",
+			"\tstdout.iter().for_each(|s| {",
+			"\t\tprintln!(\"{}\", s);",
+			"})",
+			"}",
+			"",
+			"fn solve(n: usize) -> Vec<String> {",
+			"\tlet mut buf = Vec::new();",
+			"\tbuf.push(format!(\"args = {}\", n));",
+			"\tbuf",
+			"}",
+			"",
+			"#[test]",
+			"fn test_solve_1() {",
+			"\tassert_eq!(solve(1), vec!(\"args = 1\"));",
+			"}",
+			"",
+			"#[test]",
+			"fn test_solve_2() {",
+			"\tassert_eq!(solve(2), vec!(\"args = 2\"));",
+			"}"
+		],
+		"description": "Base code for atcoder"
+	},
+	"is_prime": {
+		"scope": "rust",
+		"prefix": "is_prime",
+		"body": [
+			"fn is_prime(n: u64) -> bool {",
+			"\tif n == 2 {",
+			"\t\treturn true;",
+			"\t}",
+			"\tif n == 0 || n == 1 || n % 2 == 0 {",
+			"\t\treturn false;",
+			"\t}",
+			"",
+			"\tlet mut i: u64 = 3;",
+			"\twhile i * i <= n {",
+			"\t\tif n % i == 0 {",
+			"\t\t\treturn false;",
+			"\t\t}",
+			"",
+			"\t\ti += 2;",
+			"\t}",
+			"",
+			"\ttrue",
+			"}"
+		],
+		"description": "素数判定"
+	},
+	"enum_divisors": {
+		"scope": "rust",
+		"prefix": "enum_divisors",
+		"body": [
+			"fn enum_divisors(n: u64) -> HashSet<u64> {",
+			"\tlet mut divisors = HashSet::new();",
+			"\tif n == 0 {",
+			"\t\treturn divisors;",
+			"\t}",
+			"",
+			"\tlet mut i: u64 = 1;",
+			"\twhile i * i <= n {",
+			"\t\tif n % i == 0 {",
+			"\t\t\tdivisors.insert(i);",
+			"\t\t\tdivisors.insert(n / i);",
+			"\t\t}",
+			"",
+			"\t\ti += 1;",
+			"\t}",
+			"",
+			"\tdivisors",
+			"}"
+		],
+		"description": "約数列挙"
+	},
+	"prime_factorize": {
+		"scope": "rust",
+		"prefix": "prime_factorize",
+		"body": [
+			"fn prime_factorize(mut n: u64) -> HashMap<u64, u64> {",
+			"\tlet mut ans = HashMap::new();",
+			"\tlet mut i = 2;",
+			"\twhile i * i <= n {",
+			"\t\tif n % i == 0 {",
+			"\t\t\tlet mut ex = 0;",
+			"\t\t\twhile n % i == 0 {",
+			"\t\t\t\tex += 1;",
+			"\t\t\t\tn = n / i;",
+			"\t\t\t}",
+			"\t\t\tans.insert(i, ex);",
+			"\t\t}",
+			"\t\ti += 1;",
+			"\t}",
+			"\tif n > 1 {",
+			"\t\tans.insert(n, 1);",
+			"\t}",
+			"",
+			"\tans",
+			"}",
+		],
+		"description": "素因数分解"
+	},
+	"greatest_common_divisor": {
+		"scope": "rust",
+		"prefix": "greatest_common_divisor",
+		"body": [
+			"fn gcd(a: u64, b: u64) -> u64 {",
+			"\tif b == 0 {",
+			"\t\ta",
+			"\t} else {",
+			"\t\tgcd(b, a % b)",
+			"\t}",
+			"}"
+		],
+		"description": "最大公約数"
+	}
+}
