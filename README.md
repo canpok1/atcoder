@@ -16,11 +16,21 @@ AtCoder挑戦用のリポジトリ
 2. コンテスト用ディレクトリをVSCodeのワークスペースに追加
 3. 実装開始
 
-### テスト
+### よく使うコマンド
 
-[cargo-atcoder](https://github.com/tanakh/cargo-atcoder)で各種操作が可能
 ```
-# テスト
+# テスト実行（問題ページの入力例）
 cargo atcoder test a
+
+# テスト実行（自作のテストコード）
+cargo test --bin a
+
+# テスト実行（手動入力）
+cargo atcoder test a --custom
+
+# 提出
+cargo atcoder submit a
 ```
 
+### その他
+[cargo-atcoder](https://github.com/tanakh/cargo-atcoder)を参照
