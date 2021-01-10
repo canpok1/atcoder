@@ -15,128 +15,63 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
-	"Input stdin as string": {
-		"scope": "rust",
-		"prefix": "input stdin as string",
-		"body": [
-			"let ${1:s}:String = {",
-			"\tlet mut line = String::new();",
-			"\tstd::io::stdin().read_line(&mut line).unwrap();",
-			"\tline.trim_end().to_owned()",
-			"};"
-		],
-		"description": "Read stdin as single string"
-	},
-	"Input stdin as strings": {
-		"scope": "rust",
-		"prefix": "input stdin as strings",
-		"body": [
-			"let (${1:s1}, ${2:s2}) = {",
-			"\tlet mut line = String::new();",
-			"\tstd::io::stdin().read_line(&mut line).unwrap();",
-			"\tlet mut ws = line.trim_end().split_whitespace();",
-			"\tlet s1: String = ws.next().unwrap().parse().unwrap();",
-			"\tlet s2: String = ws.next().unwrap().parse().unwrap();",
-			"\t(s1, s2)",
-			"};"
-		],
-		"description": "Read stdin as strings"
-	},
-	"Input stdin as string vector": {
-		"scope": "rust",
-		"prefix": "input stdin as string vector",
-		"body": [
-			"let ${1:s}:Vec<String> = {",
-			"\tlet mut line = String::new();",
-			"\tstd::io::stdin().read_line(&mut line).unwrap();",
-			"\tline.trim_end().split_whitespace().map(|v| v.to_string()).collect()",
-			"};"
-		],
-		"description": "Read stdin as string vector"
-	},
-	"Input stdin as number": {
-		"scope": "rust",
-		"prefix": "input stdin as number",
-		"body": [
-			"let ${1:n}: ${2:usize} = {",
-			"\tlet mut line = String::new();",
-			"\tstd::io::stdin().read_line(&mut line).unwrap();",
-			"\tline.trim_end().parse().unwrap()",
-			"};"
-		],
-		"description": "Read stdin as single number"
-	},
-	"Input stdin as numbers": {
-		"scope": "rust",
-		"prefix": "input stdin as numbers",
-		"body": [
-			"let (${1:n1}, ${2:n2}) = {",
-			"\tlet mut line = String::new();",
-			"\tstd::io::stdin().read_line(&mut line).unwrap();",
-			"\tlet mut ws = line.trim_end().split_whitespace();",
-			"\tlet n1: ${3:usize} = ws.next().unwrap().parse().unwrap();",
-			"\tlet n2: ${3:usize} = ws.next().unwrap().parse().unwrap();",
-			"\t(n1, n2)",
-			"};"
-		],
-		"description": "Read stdin as numbers"
-	},
-	"Input stdin as number vector": {
-		"scope": "rust",
-		"prefix": "input stdin as number vector",
-		"body": [
-			"let ${1:n}: Vec<${2:usize}> = {",
-			"\tlet mut line = String::new();",
-			"\tstd::io::stdin().read_line(&mut line).unwrap();",
-			"\tline.trim_end().split_whitespace().map(|v| v.parse().unwrap()).collect()",
-			"};"
-		],
-		"description": "Read stdin as number vector"
-	},
-	"Input stdin all as string vector": {
-		"scope": "rust",
-		"prefix": "input stdin all as string vector",
-		"body": [
-			"let mut ${1:stdin}: Vec<String> = Vec::new();",
-			"loop {",
-			"\tlet mut s = String::new();",
-			"\tlet size = std::io::stdin().read_line(&mut s).unwrap();",
-			"\tif size == 0 {",
-			"\t    break;",
-			"\t}",
-			"\tstdin.push(s.trim_end().to_string());",
-			"}"
-		],
-		"description": "Read stdin all as string vector"
-	},
 	"atcoder base": {
 		"scope": "rust",
 		"prefix": "atcoder",
 		"body": [
-			"fn main() {",
-			"\tlet stdout = solve(1);",
-			"\tstdout.iter().for_each(|s| {",
-			"\t\tprintln!(\"{}\", s);",
-			"})",
+			"fn read_line() -> String {",
+			"\tlet mut line = String::new();",
+			"\tstd::io::stdin().read_line(&mut line).unwrap();",
+			"\tline.trim_end().to_owned()",
 			"}",
 			"",
-			"fn solve(n: usize) -> Vec<String> {",
+			"fn main() {",
+			"\tlet stdin = read_line();",
+			"\tlet stdout = solve(&stdin);",
+			"\tstdout.iter().for_each(|s| {",
+			"\t\tprintln!(\"{}\", s);",
+			"\t})",
+			"}",
+			"",
+			"fn solve(s: &str) -> Vec<String> {",
 			"\tlet mut buf = Vec::new();",
-			"\tbuf.push(format!(\"args = {}\", n));",
+			"\tbuf.push(format!(\"{}\", s));",
 			"\tbuf",
 			"}",
 			"",
 			"#[test]",
 			"fn test_solve_1() {",
-			"\tassert_eq!(solve(1), vec!(\"args = 1\"));",
-			"}",
-			"",
-			"#[test]",
-			"fn test_solve_2() {",
-			"\tassert_eq!(solve(2), vec!(\"args = 2\"));",
+			"\tassert_eq!(solve(\"1\"), vec!(\"1\"));",
 			"}"
 		],
 		"description": "Base code for atcoder"
+	},
+	"Input stdin as single value": {
+		"scope": "rust",
+		"prefix": "input stdin as single values",
+		"body": [
+			"let ${1:v} = read_line().parse().unwrap();",
+		],
+		"description": "標準入力から値取得"
+	},
+	"Input stdin as multi values": {
+		"scope": "rust",
+		"prefix": "input stdin as multi values",
+		"body": [
+			"let mut stdin  = read_line();",
+			"let mut iter  = stdin.split_whitespace();",
+			"let ${1:v1} = iter.next().unwrap().parse().unwrap();",
+			"let ${2:v2} = iter.next().unwrap().parse().unwrap();",
+		],
+		"description": "標準入力から値取得（複数値）"
+	},
+	"Input stdin as vector": {
+		"scope": "rust",
+		"prefix": "input stdin as vector",
+		"body": [
+			"let ${1:v} = read_line().split_whitespace().map(|v| v.parse().unwrap()).collect();",
+		],
+		"description": "標準入力から値取得（Vec型）"
 	},
 	"is_prime": {
 		"scope": "rust",
