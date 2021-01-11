@@ -2,11 +2,13 @@
 
 AtCoder挑戦用のリポジトリ
 
+
 ## 環境構築
 
 1. リポジトリをclone
 2. cloneしたディレクトリをVSCodeのRemote Containerで開く
 3. AtCoderにログイン(VSCodeの統合ターミナルで `cargo atcoder login`)
+
 
 ## 各種操作
 
@@ -34,3 +36,12 @@ cargo atcoder submit a
 
 ### その他
 [cargo-atcoder](https://github.com/tanakh/cargo-atcoder)を参照
+
+
+## 自作メモ
+* [Rustチートシート](./docs/cheatsheet.md)
+* [アルゴリズム](./docs/algorithm.md)
+
+
+## リンク
+* [AtCoder](https://atcoder.jp/?lang=ja)
