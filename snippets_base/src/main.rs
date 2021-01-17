@@ -7,20 +7,31 @@ fn read_line() -> String {
 }
 
 fn main() {
-    let stdin = read_line();
-    let stdout = solve(&stdin);
+    let solver = Solver::new(read_line());
+    let stdout = solver.solve();
     stdout.iter().for_each(|s| {
         println!("{}", s);
     })
 }
 
-fn solve(s: &str) -> Vec<String> {
-    let mut buf = Vec::new();
-    buf.push(format!("{}", s));
-    buf
+struct Solver {
+    s: String,
+}
+
+impl Solver {
+    fn new(s: String) -> Solver {
+        Solver { s: s }
+    }
+
+    fn solve(&self) -> Vec<String> {
+        let mut buf = Vec::new();
+        buf.push(format!("{}", self.s));
+        buf
+    }
 }
 
 #[test]
 fn test_solve_1() {
-    assert_eq!(solve("1"), vec!("1"));
+    let solver = Solver::new("1".to_owned());
+    assert_eq!(solver.solve(), vec!("1"));
 }
