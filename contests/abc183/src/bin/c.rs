@@ -1,94 +1,80 @@
 use std::collections::HashSet;
 
-fn main() {
-    let mut stdin: Vec<String> = Vec::new();
-    loop {
-        let mut s = String::new();
-        let size = std::io::stdin().read_line(&mut s).unwrap();
-        if size == 0 {
-            break;
-        }
-        stdin.push(s.trim_end().to_string());
-    }
-    run(stdin).iter().for_each(|v| println!("{}", v));
+fn read_line() -> String {
+    let mut line = String::new();
+    std::io::stdin().read_line(&mut line).unwrap();
+    line.trim_end().to_owned()
 }
 
-fn run(stdin: Vec<String>) -> Vec<String> {
-    let mut buf = Vec::new();
+fn main() {
+    let stdin = read_line();
+    let mut iter = stdin.split_whitespace();
+    let n = iter.next().unwrap().parse().unwrap();
+    let k = iter.next().unwrap().parse().unwrap();
 
-    let (n, k) = {
-        let mut ws = stdin[0].trim_end().split_whitespace();
-        let n1: usize = ws.next().unwrap().parse().unwrap();
-        let n2: usize = ws.next().unwrap().parse().unwrap();
-        (n1, n2)
-    };
-    let mut cost: Vec<Vec<usize>> = Vec::new();
-    for (i, v) in stdin.iter().enumerate() {
-        if i == 0 {
-            continue;
-        }
-        let t: Vec<usize> = v
-            .trim_end()
+    // tt[i][j] = Tij
+    let mut tt: Vec<Vec<u64>> = Vec::new();
+    (0..n).for_each(|_| {
+        let t = read_line()
             .split_whitespace()
             .map(|v| v.parse().unwrap())
             .collect();
-        cost.push(t);
-    }
+        tt.push(t);
+    });
 
-    let mut count: usize = 0;
-    let mut skip: HashSet<usize> = HashSet::new();
-    skip.insert(0);
-    let mut cost = 0;
-
-    buf
+    let mut solver = Solver::new(k, tt);
+    let stdout = solver.solve();
+    stdout.iter().for_each(|s| {
+        println!("{}", s);
+    })
 }
 
 struct Solver {
     n: usize,
+    k: u64,
+    tt: Vec<Vec<u64>>,
+    visited: HashSet<usize>,
+    ans: u64,
 }
 
 impl Solver {
-    pub fn new(n: usize) -> Solver {
-        Solver { n: n }
+    fn new(k: u64, tt: Vec<Vec<u64>>) -> Solver {
+        Solver {
+            n: tt.len(),
+            k: k,
+            tt: tt,
+            visited: HashSet::new(),
+            ans: 0,
+        }
     }
 
-    pub fn solve(&self) -> usize {
-        0
+    fn solve(&mut self) -> Vec<String> {
+        self.visited.clear();
+        self.ans = 0;
+        self.solv_rec(0, 0, 0);
+        let mut buf = Vec::new();
+        buf.push(format!("{}", self.ans));
+        buf
     }
 
-    pub fn make_order_list(&self) -> Vec<Vec<usize>> {
-        let ans: Vec<Vec<usize>> = Vec::new();
+    fn solv_rec(&mut self, current: usize, next: usize, cost: u64) {
+        let cost = cost + self.tt[current][next];
+        self.visited.insert(next);
 
-        // (1..self.n)..for_each(|_| {
-        // })
-        ans
+        if self.visited.len() == self.n {
+            let cost = cost + self.tt[next][0];
+            if cost == self.k {
+                self.ans += 1;
+            }
+            return;
+        }
+
+        for city in 0..self.n {
+            if self.visited.contains(&city) {
+                continue;
+            }
+            self.solv_rec(next, city, cost);
+            self.visited.remove(&city);
+        }
     }
-}
-
-#[test]
-fn test_sample_1() {
-    assert_eq!(Solver::new(2).make_order_list(), vec![vec![1]])
-}
-
-#[test]
-fn test_sample_2() {
-    assert_eq!(
-        Solver::new(3).make_order_list(),
-        vec![vec![1, 2], vec![2, 1]]
-    )
-}
-
-#[test]
-fn test_sample_3() {
-    assert_eq!(
-        Solver::new(4).make_order_list(),
-        vec![
-            vec![1, 2, 3],
-            vec![1, 3, 2],
-            vec![2, 1, 3],
-            vec![2, 3, 1],
-            vec![3, 1, 2],
-            vec![3, 2, 1]
-        ]
-    )
 }
