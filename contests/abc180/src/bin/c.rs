@@ -21,40 +21,26 @@ fn run(stdin: Vec<String>) -> Vec<String> {
         ws.next().unwrap().parse().unwrap()
     };
 
-    let mut ans: BTreeSet<u64> = BTreeSet::new();
-    let max = n / 2;
-    for v in 1..=max {
-        if n % v == 0 {
-            ans.insert(v);
-            ans.insert(n / v);
-        }
-    }
-
+    let ans = enum_divisors(n);
     ans.iter().for_each(|v| buf.push(format!("{}", v)));
     buf
 }
 
-#[test]
-fn test_run_sample1() {
-    let input: Vec<String> = vec!["6"].iter().map(|v| v.to_string()).collect();
-    assert_eq!(run(input), vec!("1", "2", "3", "6"));
-}
+fn enum_divisors(n: u64) -> BTreeSet<u64> {
+    let mut divisors = BTreeSet::new();
+    if n == 0 {
+        return divisors;
+    }
 
-#[test]
-fn test_run_sample2() {
-    let input: Vec<String> = vec!["720"].iter().map(|v| v.to_string()).collect();
-    assert_eq!(
-        run(input),
-        vec!(
-            "1", "2", "3", "4", "5", "6", "8", "9", "10", "12", "15", "16", "18", "20", "24", "30",
-            "36", "40", "45", "48", "60", "72", "80", "90", "120", "144", "180", "240", "360",
-            "720"
-        )
-    );
-}
+    let mut i: u64 = 1;
+    while i * i <= n {
+        if n % i == 0 {
+            divisors.insert(i);
+            divisors.insert(n / i);
+        }
 
-#[test]
-fn test_run_sample3() {
-    let input: Vec<String> = vec!["1000000007"].iter().map(|v| v.to_string()).collect();
-    assert_eq!(run(input), vec!("1", "1000000007"));
+        i += 1;
+    }
+
+    divisors
 }

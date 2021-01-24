@@ -3,35 +3,29 @@ fn main() {
         let mut s = String::new();
         std::io::stdin().read_line(&mut s).unwrap();
         let mut ws = s.trim_end().split_whitespace();
-        let x: u64 = ws.next().unwrap().parse().unwrap();
-        let y: u64 = ws.next().unwrap().parse().unwrap();
-        let a: u64 = ws.next().unwrap().parse().unwrap();
-        let b: u64 = ws.next().unwrap().parse().unwrap();
+        let x = ws.next().unwrap().parse().unwrap();
+        let y = ws.next().unwrap().parse().unwrap();
+        let a = ws.next().unwrap().parse().unwrap();
+        let b = ws.next().unwrap().parse().unwrap();
         (x, y, a, b)
     };
 
     println!("{}", run(x, y, a, b));
 }
 
-fn run(begin_x: u64, y: u64, a: u64, b: u64) -> String {
-    let mut x: u64 = begin_x;
-    let mut exp: u64 = 0;
-    let mut next_x = x * a;
+fn run(begin_x: i64, y: i64, a: i64, b: i64) -> String {
+    let mut exp = 0;
+    let mut x = begin_x;
     loop {
-        if next_x > x + b {
+        let (next_x, overflow) = a.overflowing_mul(x);
+        if overflow || next_x > x + b || next_x >= y {
             break;
         }
-        if next_x >= y {
-            break;
-        }
-
         x = next_x;
-        next_x = x * a;
         exp += 1;
     }
-    if y >= x + 1 {
-        exp = exp + (y - x - 1) / b;
-    }
+
+    exp += (y - x - 1) / b;
 
     format!("{}", exp)
 }

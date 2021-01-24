@@ -22,50 +22,29 @@ fn main() {
 }
 
 fn run(r1: isize, c1: isize, r2: isize, c2: isize) -> Vec<String> {
-    let mut buf = Vec::new();
-
-    if r1 == r2 && c1 == c2 {
-        buf.push(format!("{}", 0));
-        return buf;
-    }
-
-    if can_move(r1, c1, r2, c2) {
-        buf.push(format!("{}", 1));
-        return buf;
-    }
-
-    let x = ((r1 - c1 + r2 + c2) as f64) / 2_f64;
-    let y = ((-r1 + c1 + r2 + c2) as f64) / 2_f64;
-
-    if (x - x.floor() == 0.0) && (y - y.floor() == 0.0) {
-        buf.push(format!("{}", 2));
-        return buf;
-    }
-
-    if ((r1 as f64) - x).powf(2.0) + ((c1 as f64) - y).powf(2.0) <= 9_f64 {
-        buf.push(format!("{}", 2));
-        return buf;
-    }
-
-    if ((r2 as f64) - x).powf(2.0) + ((c2 as f64) - y).powf(2.0) <= 9_f64 {
-        buf.push(format!("{}", 2));
-        return buf;
-    }
-
-    buf.push(format!("{}", 3));
-    buf
-}
-
-fn can_move(a: isize, b: isize, c: isize, d: isize) -> bool {
-    if a + b == c + d {
-        true
-    } else if a - b == c - d {
-        true
-    } else if (a - c).abs() + (b - d).abs() <= 3 {
-        true
+    let ans = if r1 == r2 && c1 == c2 {
+        0
+    } else if r1 + c1 == r2 + c2 {
+        1
+    } else if r1 - c1 == r2 - c2 {
+        1
+    } else if (r1 - r2).abs() + (c1 - c2).abs() <= 3 {
+        1
+    } else if (r1 + c1 + r2 + c2) % 2 == 0 {
+        2
+    } else if (r1 - r2).abs() + (c1 - c2).abs() <= 6 {
+        2
+    } else if ((r1 + c1) - (r2 + c2)).abs() <= 3 {
+        2
+    } else if ((r1 - c1) - (r2 - c2)).abs() <= 3 {
+        2
     } else {
-        false
-    }
+        3
+    };
+
+    let mut buf = Vec::new();
+    buf.push(format!("{}", ans));
+    buf
 }
 
 #[test]
@@ -131,4 +110,9 @@ fn test_run_12() {
 #[test]
 fn test_run_13() {
     assert_eq!(run(2, 2, 8, -3), vec!("2"));
+}
+
+#[test]
+fn test_run_14() {
+    assert_eq!(run(1, 1, 1, 6), vec!("2"));
 }
