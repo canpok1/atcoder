@@ -10,7 +10,7 @@ fn is_prime(n: u64) -> bool {
         return false;
     }
 
-    let mut i: u64 = 3;
+    let mut i = 3;
     while i * i <= n {
         if n % i == 0 {
             return false;
@@ -59,7 +59,7 @@ fn enum_divisors(n: u64) -> HashSet<u64> {
         return divisors;
     }
 
-    let mut i: u64 = 1;
+    let mut i = 1;
     while i * i <= n {
         if n % i == 0 {
             divisors.insert(i);
