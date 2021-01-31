@@ -96,22 +96,23 @@ fn test_enum_divisors_10() {
     assert_eq!(enum_divisors(10), want)
 }
 
-fn prime_factorize(mut n: u64) -> HashMap<u64, u64> {
+fn prime_factorize(n: u64) -> HashMap<u64, u64> {
     let mut ans = HashMap::new();
     let mut i = 2;
-    while i * i <= n {
-        if n % i == 0 {
+    let mut nn = n;
+    while i * i <= nn {
+        if nn % i == 0 {
             let mut ex = 0;
-            while n % i == 0 {
+            while nn % i == 0 {
                 ex += 1;
-                n = n / i;
+                nn = nn / i;
             }
             ans.insert(i, ex);
         }
         i += 1;
     }
-    if n > 1 {
-        ans.insert(n, 1);
+    if nn > 1 {
+        ans.insert(nn, 1);
     }
 
     ans
