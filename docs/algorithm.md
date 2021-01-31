@@ -20,3 +20,14 @@
 
 ### 練習問題
 * [AtCoder Beginner Contest 188 D - Snuke Prime](https://atcoder.jp/contests/abc188/tasks/abc188_d)
+
+
+## 二分探索
+
+ある条件を満たす領域と満たさない領域の境界を求めたいときに使える方法。探索範囲を半減させていくことで解を求める。
+
+### 詳細
+* [二分探索アルゴリズムを一般化 〜 めぐる式二分探索法のススメ 〜](https://qiita.com/drken/items/97e37dd6143e33a64c8c)
+
+### 練習問題
+* [AtCoder Regular Contest 109 B - log](https://atcoder.jp/contests/arc109/tasks/arc109_b)
