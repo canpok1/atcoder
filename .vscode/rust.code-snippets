@@ -57,18 +57,6 @@
 		],
 		"description": "テストコード"
 	},
-	"read_line": {
-		"scope": "rust",
-		"prefix": "myfunc read_line",
-		"body": [
-			"fn read_line() -> String {",
-			"\tlet mut line = String::new();",
-			"\tstd::io::stdin().read_line(&mut line).unwrap();",
-			"\tline.trim_end().to_owned()",
-			"}",
-		],
-		"description": "標準入力から文字列取得"
-	},
 	"Input stdin as single value": {
 		"scope": "rust",
 		"prefix": "input stdin as single values",
@@ -95,98 +83,5 @@
 			"let ${1:v} = read_line().split_whitespace().map(|v| v.parse().unwrap()).collect();",
 		],
 		"description": "標準入力から値取得（Vec型）"
-	},
-	"is_prime": {
-		"scope": "rust",
-		"prefix": "myfunc is_prime",
-		"body": [
-			"fn is_prime(n: ${1:u64}) -> bool {",
-			"\tif n == 2 {",
-			"\t\treturn true;",
-			"\t}",
-			"\tif n == 0 || n == 1 || n % 2 == 0 {",
-			"\t\treturn false;",
-			"\t}",
-			"",
-			"\tlet mut i = 3;",
-			"\twhile i * i <= n {",
-			"\t\tif n % i == 0 {",
-			"\t\t\treturn false;",
-			"\t\t}",
-			"",
-			"\t\ti += 2;",
-			"\t}",
-			"",
-			"\ttrue",
-			"}"
-		],
-		"description": "素数判定"
-	},
-	"enum_divisors": {
-		"scope": "rust",
-		"prefix": "myfunc enum_divisors",
-		"body": [
-			"fn enum_divisors(n: ${1:u64}) -> HashSet<${1:u64}> {",
-			"\tlet mut divisors = HashSet::new();",
-			"\tif n == 0 {",
-			"\t\treturn divisors;",
-			"\t}",
-			"",
-			"\tlet mut i = 1;",
-			"\twhile i * i <= n {",
-			"\t\tif n % i == 0 {",
-			"\t\t\tdivisors.insert(i);",
-			"\t\t\tdivisors.insert(n / i);",
-			"\t\t}",
-			"",
-			"\t\ti += 1;",
-			"\t}",
-			"",
-			"\tdivisors",
-			"}"
-		],
-		"description": "約数列挙"
-	},
-	"prime_factorize": {
-		"scope": "rust",
-		"prefix": "myfunc_prime_factorize",
-		"body": [
-			"fn prime_factorize(n: ${1:u64}) -> HashMap<${1:u64}, ${1:u64}> {",
-			"\tlet mut ans = HashMap::new();",
-			"\tlet mut i = 2;",
-			"\tlet mut nn = n;",
-			"\twhile i * i <= nn {",
-			"\t\tif nn % i == 0 {",
-			"\t\t\tlet mut ex = 0;",
-			"\t\t\twhile nn % i == 0 {",
-			"\t\t\t\tex += 1;",
-			"\t\t\t\tnn = nn / i;",
-			"\t\t\t}",
-			"\t\t\tans.insert(i, ex);",
-			"\t\t}",
-			"\t\ti += 1;",
-			"\t}",
-			"\tif nn > 1 {",
-			"\t\tans.insert(nn, 1);",
-			"\t}",
-			"",
-			"\tans",
-			"}",
-		],
-		"description": "素因数分解"
-	},
-	"greatest_common_divisor": {
-		"scope": "rust",
-		"prefix": "myfunc_greatest_common_divisor",
-		"body": [
-			"fn gcd(a: ${1:u64}, b: ${1:u64}) -> ${1:u64} {",
-			"\tif b == 0 {",
-			"\t\ta",
-			"\t} else {",
-			"\t\tgcd(b, a % b)",
-			"\t}",
-			"}"
-		],
-		"description": "最大公約数"
 	}
 }

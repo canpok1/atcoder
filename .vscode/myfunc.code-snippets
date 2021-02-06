@@ -1,0 +1,104 @@
+{
+  "myfunc enum_divisors": {
+    "prefix": "myfunc enum_divisors",
+    "body": [
+      "#[allow(dead_code)]",
+      "fn enum_divisors(n: u64) -> HashSet<u64> {",
+      "    let mut divisors = HashSet::new();",
+      "    if n == 0 {",
+      "        return divisors;",
+      "    }",
+      "    let mut i = 1;",
+      "    while i * i <= n {",
+      "        if n % i == 0 {",
+      "            divisors.insert(i);",
+      "            divisors.insert(n / i);",
+      "        }",
+      "        i += 1;",
+      "    }",
+      "    divisors",
+      "}"
+    ]
+  },
+  "myfunc gcd": {
+    "prefix": "myfunc gcd",
+    "body": [
+      "#[allow(dead_code)]",
+      "fn gcd(a: u64, b: u64) -> u64 {",
+      "    if b == 0 {",
+      "        a",
+      "    } else {",
+      "        gcd(b, a % b)",
+      "    }",
+      "}"
+    ]
+  },
+  "myfunc is_prime": {
+    "prefix": "myfunc is_prime",
+    "body": [
+      "#[allow(dead_code)]",
+      "fn is_prime(n: u64) -> bool {",
+      "    if n == 2 {",
+      "        return true;",
+      "    }",
+      "    if n == 0 || n == 1 || n % 2 == 0 {",
+      "        return false;",
+      "    }",
+      "    let mut i = 3;",
+      "    while i * i <= n {",
+      "        if n % i == 0 {",
+      "            return false;",
+      "        }",
+      "        i += 2;",
+      "    }",
+      "    true",
+      "}"
+    ]
+  },
+  "myfunc lcm": {
+    "prefix": "myfunc lcm",
+    "body": [
+      "#[allow(dead_code)]",
+      "fn lcm(a: u64, b: u64) -> u64 {",
+      "    a * b / gcd(a, b)",
+      "}"
+    ]
+  },
+  "myfunc prime_factorize": {
+    "prefix": "myfunc prime_factorize",
+    "body": [
+      "#[allow(dead_code)]",
+      "fn prime_factorize(n: u64) -> HashMap<u64, u64> {",
+      "    let mut ans = HashMap::new();",
+      "    let mut i = 2;",
+      "    let mut nn = n;",
+      "    while i * i <= nn {",
+      "        if nn % i == 0 {",
+      "            let mut ex = 0;",
+      "            while nn % i == 0 {",
+      "                ex += 1;",
+      "                nn = nn / i;",
+      "            }",
+      "            ans.insert(i, ex);",
+      "        }",
+      "        i += 1;",
+      "    }",
+      "    if nn > 1 {",
+      "        ans.insert(nn, 1);",
+      "    }",
+      "    ans",
+      "}"
+    ]
+  },
+  "myfunc read_line": {
+    "prefix": "myfunc read_line",
+    "body": [
+      "#[allow(dead_code)]",
+      "fn read_line() -> String {",
+      "    let mut line = String::new();",
+      "    std::io::stdin().read_line(&mut line).unwrap();",
+      "    line.trim_end().to_owned()",
+      "}"
+    ]
+  }
+}
