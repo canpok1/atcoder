@@ -1,0 +1,19 @@
+[package]
+name = "abc191"
+version = "0.1.0"
+authors = ["canpok1 <6isstrong@gmail.com>"]
+edition = "2018"
+
+# dependencies added to new project
+[dependencies]
+num = "=0.2.1"
+num-bigint = "=0.2.6"
+num-complex = "=0.2.4"
+num-integer = "=0.1.42"
+num-iter = "=0.1.40"
+num-rational = "=0.2.4"
+num-traits = "=0.2.11"
+
+[profile.release]
+lto = true
+panic = 'abort'
