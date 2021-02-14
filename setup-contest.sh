@@ -11,4 +11,4 @@ CONTEST_NAME=${1#https://atcoder.jp/contests/}
 echo "CONTEST NAME: ${CONTEST_NAME}"
 
 cargo atcoder new ${CONTEST_NAME}
-echo "open contest directory: $(pwd)/${CONTEST_NAME}"
+echo "contest directory: $(pwd)/${CONTEST_NAME}"
