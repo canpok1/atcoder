@@ -2,6 +2,10 @@ use cargo_snippet::snippet;
 use std::collections::HashMap;
 use std::collections::HashSet;
 
+mod graph;
+mod matrix;
+mod search;
+
 #[snippet(name = "myfunc read_line")]
 #[allow(dead_code)]
 fn read_line() -> String {
@@ -10,8 +14,8 @@ fn read_line() -> String {
     line.trim_end().to_owned()
 }
 
-// 素数判定
 #[snippet(name = "myfunc is_prime")]
+// 素数判定
 #[allow(dead_code)]
 fn is_prime(n: u64) -> bool {
     if n == 2 {
@@ -63,8 +67,9 @@ fn test_is_prime_5() {
     assert_eq!(is_prime(5), true)
 }
 
-// 約数列挙
 #[snippet(name = "myfunc enum_divisors")]
+#[snippet(prefix = "use std::collections::HashSet;")]
+// 約数列挙
 #[allow(dead_code)]
 fn enum_divisors(n: u64) -> HashSet<u64> {
     let mut divisors = HashSet::new();
@@ -109,8 +114,9 @@ fn test_enum_divisors_10() {
     assert_eq!(enum_divisors(10), want)
 }
 
-// 素因数分解
 #[snippet(name = "myfunc prime_factorize")]
+#[snippet(prefix = "use std::collections::HashMap;")]
+// 素因数分解
 #[allow(dead_code)]
 fn prime_factorize(n: u64) -> HashMap<u64, u64> {
     let mut ans = HashMap::new();
@@ -162,8 +168,8 @@ fn test_prime_factorize_2020() {
     assert_eq!(prime_factorize(2020), want);
 }
 
-// 最大公約数
 #[snippet(name = "myfunc gcd")]
+// 最大公約数
 #[allow(dead_code)]
 fn gcd(a: u64, b: u64) -> u64 {
     if b == 0 {
@@ -173,8 +179,8 @@ fn gcd(a: u64, b: u64) -> u64 {
     }
 }
 
-// 最小公倍数
 #[snippet(name = "myfunc lcm")]
+// 最小公倍数
 #[allow(dead_code)]
 fn lcm(a: u64, b: u64) -> u64 {
     a * b / gcd(a, b)
