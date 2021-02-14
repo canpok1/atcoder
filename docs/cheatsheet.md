@@ -1,17 +1,36 @@
 # Rustの文法
 
+## [フォーマット](https://doc.rust-jp.rs/rust-by-example-ja/hello/print.html)
+```
+fn main() {
+    println!("{} days", 31);    // => "31 days"
+    println!("{:.3}", 12.34567);    // => "12.346"
+}
+```
+
 ## [基本データ型](https://doc.rust-jp.rs/rust-by-example-ja/primitives.html)
 ```
 fn main() {
     assert_eq!(10_i32.abs(), 10);  // 絶対値
-    assert_eq!(i0_i32.pow(2), 100); // 累乗
+    assert_eq!(10_i32.pow(2), 100); // 累乗
     assert_eq!(4.0_f32.sqrt(), 2.0); // 平方根
     assert_eq!(10_f32.powi(2), 100.0); // 累乗
     assert_eq!(10_f32.powf(2.0), 100.0); // 累乗
-    assert_eq!(4.4_f32.round(), 4.0); // 四捨五入
-    assert_eq!(4.5_f32.round(), 5.0); // 四捨五入
-    assert_eq!(4.5_f32.floor(), 4.0); // 切り捨て
-    assert_eq!(4.4_f32.ceil(), 5.0); // 切り上げ
+    assert_eq!(4.4_f32.round(), 4.0); // 四捨五入(最も近い整数)
+    assert_eq!(4.5_f32.round(), 5.0); // 四捨五入(最も近い整数)
+    assert_eq!(4.5_f32.floor(), 4.0); // 切り捨て(最も近くて小さい整数)
+    assert_eq!(4.4_f32.ceil(), 5.0); // 切り上げ(最も近くて大きい整数)
+
+    // 負の場合
+    assert_eq!((-1 * 10_i32).abs(), 10);  // 絶対値
+    assert_eq!((-1 * 10_i32).pow(2), 100); // 累乗
+    assert_eq!((-1.0 * 4.0_f32).sqrt(), 2.0); // 平方根
+    assert_eq!((-1.0 * 10_f32).powi(2), 100.0); // 累乗
+    assert_eq!((-1.0 * 10_f32).powf(2.0), 100.0); // 累乗
+    assert_eq!((-1.0 * 4.4_f32).round(), -4.0); // 四捨五入(最も近い整数)
+    assert_eq!((-1.0 * 4.5_f32).round(), -5.0); // 四捨五入(最も近い整数)
+    assert_eq!((-1.0 * 4.1_f32).floor(), -5.0); // 切り捨て(最も近くて小さい整数)
+    assert_eq!((-1.0 * 4.9_f32).ceil(), -4.0); // 切り上げ(最も近くて大きい整数)
 
     // すべて同じ値の固定長配列
     let array = [5; 3];
