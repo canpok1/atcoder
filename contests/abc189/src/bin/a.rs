@@ -1,11 +1,10 @@
-fn read_line() -> String {
-    let mut line = String::new();
-    std::io::stdin().read_line(&mut line).unwrap();
-    line.trim_end().to_owned()
-}
+use proconio::input;
 
 fn main() {
-    let solver = Solver::new(read_line());
+    input! {
+        s: String,
+    }
+    let solver = Solver::new(s);
     let stdout = solver.solve();
     stdout.iter().for_each(|s| {
         println!("{}", s);
