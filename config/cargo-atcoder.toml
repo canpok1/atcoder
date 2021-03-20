@@ -26,7 +26,21 @@ proconio = { version = "=0.3.6", features = ["derive"] }
 template = """
 use proconio::input;
 fn main() {
-    input! {}
-    unimplemented!();
+    let solver = Solver::new();
+    solver.solve();
+}
+
+struct Solver {}
+
+impl Solver {
+    fn new(s: String) -> Solver {
+        Solver {}
+    }
+
+    fn solve(&self) {
+        input! {}
+        let ans = 0;
+        println!("{}", ans);
+    }
 }
 """
